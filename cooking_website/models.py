@@ -34,8 +34,8 @@ class Recipe(models.Model):
     description = models.TextField(max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    writer = models.ForeignKey(
-        CustomUser, related_name="writer", on_delete=models.CASCADE
+    written_by = models.ForeignKey(
+        CustomUser, related_name="written_by", on_delete=models.CASCADE
     )
 
     def __str__(self):
