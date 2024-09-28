@@ -47,3 +47,10 @@ class Like(models.Model):
     given_by = models.ForeignKey(
         CustomUser, related_name="given_by", on_delete=models.CASCADE
     )
+
+
+class Notification(models.Model):
+    content = models.TextField(verbose_name="内容", max_length=200)
+    recipient = models.ForeignKey(
+        CustomUser, related_name="notification", on_delete=models.CASCADE
+    )
