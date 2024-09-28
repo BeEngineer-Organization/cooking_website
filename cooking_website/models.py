@@ -24,3 +24,19 @@ class Connection(models.Model):
 
     def __str__(self):
         return f"{self.followee} is followed by {self.follower}"
+
+
+class Recipe(models.Model):
+    title = models.CharField(verbose_name="タイトル", max_length=100)
+    image = models.ImageField(
+        verbose_name="画像", null=True, blank=True, upload_to="images/recipe/"
+    )
+    description = models.TextField(max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    writer = models.ForeignKey(
+        CustomUser, related_name="writer", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.title
