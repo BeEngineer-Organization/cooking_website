@@ -40,3 +40,10 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Like(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name="recipe", on_delete=models.CASCADE)
+    given_by = models.ForeignKey(
+        CustomUser, related_name="given_by", on_delete=models.CASCADE
+    )
