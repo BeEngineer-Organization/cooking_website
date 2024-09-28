@@ -4,5 +4,4 @@ from . import views
 
 app_name = "cooking_website"
 
-urlpatterns = [
-]
+urlpatterns = []
