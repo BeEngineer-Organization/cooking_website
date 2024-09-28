@@ -12,3 +12,15 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class Connection(models.Model):
+    followee = models.ForeignKey(
+        CustomUser, related_name="followee", on_delete=models.CASCADE
+    )
+    follower = models.ForeignKey(
+        CustomUser, related_name="follower", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"{self.followee} is followed by {self.follower}"
