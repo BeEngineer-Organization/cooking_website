@@ -31,26 +31,20 @@ class Recipe(models.Model):
     image = models.ImageField(
         verbose_name="画像", null=True, blank=True, upload_to="images/recipe/"
     )
-    description = models.TextField(max_length=5000)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    written_by = models.ForeignKey(
-        CustomUser, related_name="written_by", on_delete=models.CASCADE
-    )
+    description = models.TextField(verbose_name="説明", max_length=5000)
+    created_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="更新日時", auto_now=True)
+    written_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 
 class Like(models.Model):
-    recipe = models.ForeignKey(Recipe, related_name="recipe", on_delete=models.CASCADE)
-    given_by = models.ForeignKey(
-        CustomUser, related_name="given_by", on_delete=models.CASCADE
-    )
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    given_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
 class Notification(models.Model):
     content = models.TextField(verbose_name="内容", max_length=200)
-    recipient = models.ForeignKey(
-        CustomUser, related_name="notification", on_delete=models.CASCADE
-    )
+    recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
