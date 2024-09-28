@@ -108,7 +108,7 @@ LANGUAGE_CODE = "ja"
 
 TIME_ZONE = "Asia/Tokyo"
 
-AUTH_USER_MODEL = "cooking_website.user"
+AUTH_USER_MODEL = "cooking_website.customuser"
 
 USE_I18N = True
 

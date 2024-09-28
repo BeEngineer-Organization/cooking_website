@@ -3,3 +3,4 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     image = models.ImageField(upload_to="images/user/")
+    profile = models.TextField(max_length=1000)
