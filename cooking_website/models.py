@@ -9,3 +9,6 @@ class CustomUser(AbstractUser):
     image = models.ImageField(
         verbose_name="画像", null=True, blank=True, upload_to="images/user/"
     )
+
+    def __str__(self):
+        return self.username
