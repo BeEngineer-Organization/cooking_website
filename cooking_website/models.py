@@ -44,7 +44,13 @@ class Like(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     given_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"A like about {self.recipe} given by {self.given_by}"
+
 
 class Notification(models.Model):
     content = models.TextField(verbose_name="内容", max_length=200)
     recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"A notification to {self.recipient}"
