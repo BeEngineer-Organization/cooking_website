@@ -6,55 +6,73 @@ from django.views.generic import (
     ListView,
 )
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import CustomUser, Recipe, Notification
+from .forms import LoginForm, CustomUserForm, RecipeForm
 
 
 class IndexView(TemplateView):
+    template_name = "index.html"
+
+
+class MyLoginView(LoginView):
+    template_name = "login.html"
+    form_class = LoginForm
+
+
+class MyLogoutView(LoginRequiredMixin, LogoutView):
     pass
 
 
 class SignUpView(CreateView):
-    pass
+    template_name = "sign_up.html"
+    model = CustomUser
+    form_class = CustomUserForm
 
 
-class LoginView(LoginView):
-    pass
+class SearchView(LoginRequiredMixin, TemplateView):
+    template_name = "search.html"
 
 
-class LogoutView(LogoutView):
-    pass
+class RecipeView(LoginRequiredMixin, DetailView):
+    template_name = "recipe.html"
+    model = Recipe
 
 
-class SearchView(TemplateView):
-    pass
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "recipe_update.html"
+    model = Recipe
+    form_class = RecipeForm
 
 
-class RecipeView(DetailView):
-    pass
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    template_name = "recipe_create.html"
+    model = Recipe
+    form_class = RecipeForm
 
 
-class RecipeCreateView(CreateView):
-    pass
+class UserView(LoginRequiredMixin, DetailView):
+    template_name = "user.html"
+    model = CustomUser
 
 
-class RecipeUpdateView(UpdateView):
-    pass
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "user_update.html"
+    model = CustomUser
+    form_class = CustomUserForm
 
 
-class UserRecipeView(DetailView):
-    pass
+class UserFollowingView(LoginRequiredMixin, DetailView):
+    template_name = "user_following.html"
+    model = CustomUser
 
 
-class UserFollowingView(ListView):
-    pass
+class UserFollowerView(LoginRequiredMixin, DetailView):
+    template_name = "user_follower.html"
+    model = CustomUser
 
 
-class UserFollowerView(ListView):
-    pass
-
-
-class UserUpdateView(UpdateView):
-    pass
-
-
-class NotificationView(ListView):
-    pass
+class NotificationView(LoginRequiredMixin, ListView):
+    template_name = "notification.html"
+    model = Notification
