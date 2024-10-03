@@ -22,17 +22,17 @@
     {% block footer %}
     <footer class="footer">
         <div class="footer__item">
-            <a href="" class="footer__item-link">
-                <i class="fa-solid fa-house fa-lg"></i>
+            <a href="{% url 'cooking_website:search' %}" class="footer__item-link">
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
             </a>
         </div>
         <div class="footer__item">
-            <a href="" class="footer__item-link">
+            <a href="{% url 'cooking_website:user' %}" class="footer__item-link">
                 <i class="fa-solid fa-user fa-lg"></i>
             </a>
         </div>
         <div class="footer__item">
-            <a href="" class="footer__item-link">
+            <a href="{% url 'cooking_website:notification' %}" class="footer__item-link">
                 <i class="fa-solid fa-bell fa-lg"></i>
             </a>
         </div>
