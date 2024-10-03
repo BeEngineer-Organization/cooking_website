@@ -11,7 +11,7 @@ class LoginForm(AuthenticationForm):
 class CustomUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ["username", "password1", "password2" "profile", "image"]
+        fields = ["username", "password1", "password2", "profile", "image"]
 
 
 class RecipeForm(ModelForm):
