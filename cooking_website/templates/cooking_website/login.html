@@ -1,0 +1,30 @@
+{% extends 'cooking_website/base.html' %}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/login.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="main__body">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <div class="field">
+            <button type="submit" class="button">
+                ログイン
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -61,6 +61,8 @@
     color: #000;
     background-color: peachpuff;
     text-decoration: none;
+    border: none;
+    outline: none;
     border-right: 1.5px solid sandybrown;
     border-bottom: 1.5px solid sandybrown;
 }
