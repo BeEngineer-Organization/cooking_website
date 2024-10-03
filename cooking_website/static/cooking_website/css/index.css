@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.main__body {
+    margin: 0 auto;
+    padding-top: 80px;
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+}
+
+.main__item-link {
+    margin-top: 40px;
+}

@@ -50,3 +50,21 @@
     color: #000;
     z-index: 999;
 }
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    font-size: 16px;
+    color: #000;
+    background-color: peachpuff;
+    text-decoration: none;
+    border-right: 1.5px solid sandybrown;
+    border-bottom: 1.5px solid sandybrown;
+}
+
+.button:hover {
+    background-color: sandybrown;
+}
