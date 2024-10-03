@@ -2,7 +2,6 @@
 
 .main__body {
     margin: 0 auto;
-    padding-top: 80px;
     display: flex;
     width: 200px;
     flex-direction: column;
