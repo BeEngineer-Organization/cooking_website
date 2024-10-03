@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeEnRecipe</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <span class="header__title">
+            BeEnRecipe
+        </span>
+    </header>
+    <main class="main">
+        {% block main %}{% endblock %}
+    </main>
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer__item">
+            <a href="" class="footer__item-link">
+                <i class="fa-solid fa-house fa-lg"></i>
+            </a>
+        </div>
+        <div class="footer__item">
+            <a href="" class="footer__item-link">
+                <i class="fa-solid fa-user fa-lg"></i>
+            </a>
+        </div>
+        <div class="footer__item">
+            <a href="" class="footer__item-link">
+                <i class="fa-solid fa-bell fa-lg"></i>
+            </a>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>
