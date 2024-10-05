@@ -70,5 +70,11 @@
 }
 
 .button:hover {
+    cursor: pointer;
+    color: #fff;
     background-color: sandybrown;
+}
+
+.alternative-image {
+    color: lightgray;
 }

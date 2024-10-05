@@ -1,3 +1,5 @@
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.views.generic import (
     TemplateView,
     CreateView,
@@ -11,8 +13,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db.models import Count, Q
+from django.http import JsonResponse
 
-from .models import CustomUser, Recipe, Notification
+from .models import CustomUser, Recipe, Connection, Notification
 from .forms import LoginForm, CustomUserForm, RecipeSearchForm, RecipeForm
 
 
@@ -101,6 +104,21 @@ class UserView(LoginRequiredMixin, DetailView):
     template_name = "cooking_website/user.html"
     model = CustomUser
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        object = context["object"]
+        context["following_count"] = object.followee.all().count()
+        context["follower_count"] = object.follower.all().count()
+        recipes = object.recipe.all()
+        context["recipes"] = recipes
+        context["recipe_count"] = recipes.count()
+
+        if object is not self.request.user:
+            context["is_followed"] = bool(
+                Connection.objects.filter(followee=object, follower=self.request.user)
+            )
+        return context
+
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "cooking_website/user_update.html"
@@ -121,3 +139,21 @@ class UserFollowerView(LoginRequiredMixin, DetailView):
 class NotificationView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/notification.html"
     model = Notification
+
+
+def follow_post(request):
+    followee = get_object_or_404(CustomUser, pk=request.POST.get("followee_pk"))
+    connection = Connection.objects.filter(followee=followee, follower=request.user)
+
+    if connection.exists():
+        connection.delete()
+        method = "delete"
+    else:
+        Connection.objects.create(followee=followee, follower=request.user)
+        method = "create"
+
+    context = {
+        "follower_count": followee.follower.all().count(),
+        "method": method,
+    }
+    return JsonResponse(context)

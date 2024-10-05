@@ -1,0 +1,118 @@
+{% extends 'cooking_website/base.html' %}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/user.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="main__body">
+    <div class="main__body-head">
+        <div class="main__item">
+            <div class="main__item-head">
+                <div>
+                    {% if object.image %}
+                    <img src="{{ object.image.url }}" alt="" class="main__item-image">
+                    {% else %}
+                    <i class="fa-solid fa-circle-user fa-6x alternative-image"></i>
+                    {% endif %}   
+                </div>
+                <p class="main__item-username">
+                    {{ object.username }}
+                </p>
+            </div>
+            <div class="main__item-foot">
+                <p class="main__item-profile">
+                    {% if object.profile %}
+                    {{ object.profile }}
+                    {% else %}
+                    プロフィール未設定
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="main__item">
+            <div class="main__item-head">
+                <a href="{% url 'cooking_website:user_following' object.pk %}" class="main__item-link">
+                    {{ following_count }} フォロー中
+                </a>
+                <a href="{% url 'cooking_website:user_follower' object.pk %}" id="follower" class="main__item-link">
+                    {{ follower_count }} フォロワー
+                </a>
+            </div>
+            <div class="main__item-foot">
+                {% if request.user.pk == object.pk %}
+                <a href="{% url 'cooking_website:user_update' object.pk %}" class="button">
+                    編集
+                </a>
+                {% else %}
+                {% if is_followed == True %}
+                <button id="follow_button" class="button following">
+                    フォロー中
+                </button>
+                {% else %}
+                <button id="follow_button" class="button">
+                    フォロー
+                </button>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="main__body-foot">
+        <div class="main__heading">
+            <i class="fa-solid fa-utensils fa-lg"></i>
+            <h2 class="main__item-title">
+                レシピ
+            </h2>
+            <p class="main__item-caption">
+                ({{ recipe_count }})
+            </p>    
+        </div>
+        <div class="main__list">
+            {% for recipe in recipes %}
+            <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__list-item">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="" class="main__list-item-image">
+                {% else %}
+                <i class="fa-solid fa-image fa-8x alternative-image"></i>
+                {% endif %}
+                <p class="main__list-item-title">
+                    {{ recipe.title }}
+                </p>
+            </a>
+            {% endfor %}    
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript">
+    document.getElementById("follow_button").addEventListener("click", e => {
+        e.preventDefault();
+        const url = "{% url 'cooking_website:follow_post' %}";
+        fetch(url, {
+            method: "POST",
+            body: "followee_pk={{ object.pk }}",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+                "X-CSRFToken": "{{ csrf_token }}",
+                },
+            }).then(response => {
+                return response.json();
+            }).then(response => {
+                document.getElementById("follower").textContent = response.follower_count + " フォロワー";
+                follow_button = document.getElementById("follow_button");
+                follow_button.classList.toggle("following")
+                if (response.method == "create") {
+                    follow_button.textContent = "フォロー中"
+                } else {
+                    follow_button.textContent = "フォロー" 
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        });
+</script>
+{% endblock %}

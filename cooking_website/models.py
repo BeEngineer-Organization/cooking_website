@@ -16,10 +16,10 @@ class CustomUser(AbstractUser):
 
 class Connection(models.Model):
     followee = models.ForeignKey(
-        CustomUser, related_name="followee", on_delete=models.CASCADE
+        CustomUser, related_name="follower", on_delete=models.CASCADE
     )
     follower = models.ForeignKey(
-        CustomUser, related_name="follower", on_delete=models.CASCADE
+        CustomUser, related_name="followee", on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -34,15 +34,19 @@ class Recipe(models.Model):
     description = models.TextField(verbose_name="説明", max_length=5000)
     created_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新日時", auto_now=True)
-    written_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    written_by = models.ForeignKey(
+        CustomUser, related_name="recipe", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.title
 
 
 class Like(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    given_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name="like", on_delete=models.CASCADE)
+    given_by = models.ForeignKey(
+        CustomUser, related_name="like", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"A like about {self.recipe} given by {self.given_by}"
@@ -50,7 +54,9 @@ class Like(models.Model):
 
 class Notification(models.Model):
     content = models.TextField(verbose_name="内容", max_length=200)
-    recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    recipient = models.ForeignKey(
+        CustomUser, related_name="notification", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"A notification to {self.recipient}"
