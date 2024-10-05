@@ -1,0 +1,96 @@
+{% extends 'cooking_website/base.html' %}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/search.css' %}">
+{% endblock %}
+
+{% block search %}
+<form action="" method="get" class="search">
+    <span class="search__item-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <div class="search__body">
+        {{ form.keyword }}
+    </div>
+</form>
+{% endblock %}
+
+{% block main %}
+<div class="main__section">
+    <h2 class="main__section-title">人気のレシピ</h2>
+    <div class="main__section-body">
+        {% for recipe in popular_recipes %}
+        <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__section-item">
+            <div class="main__section-item-head">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="" class="main__section-item-image">
+                {% else %}
+                <i class="fa-solid fa-image fa-10x alternative-image"></i>
+                {% endif %}
+                <div class="main__section-item-right">
+                    <h3 class="main__section-item-title">
+                        {{ recipe.title }}
+                    </h3>
+                    <div class="main__section-item-user">
+                        <div class="main__section-item-user-image-wrap">
+                            {% if recipe.written_by.image %}
+                            <img src="{{ recipe.written_by.image.url }}" alt="" class="main__section-item-user-image">
+                            {% else %}
+                            <i class="fa-solid fa-circle-user fa-lg alternative-image"></i>
+                            {% endif %}    
+                        </div>
+                        <p class="main__section-item-user-text">
+                            {{ recipe.written_by }}
+                        </p>
+                    </div>        
+                </div>
+            </div>
+            <div class="main__section-item-foot">
+                <p class="main__section-item-text">                
+                    {{ recipe.description }}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<div class="main__section">
+    <h2 class="main__section-title">新着レシピ</h2>
+    <div class="main__section-body">
+        {% for recipe in new_recipes %}
+        <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__section-item">
+            <div class="main__section-item-head">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="" class="main__section-item-image">
+                {% else %}
+                <i class="fa-solid fa-image fa-10x alternative-image"></i>
+                {% endif %}
+                <div class="main__section-item-right">
+                    <h3 class="main__section-item-title">
+                        {{ recipe.title }}
+                    </h3>
+                    <div class="main__section-item-user">
+                        <div class="main__section-item-user-image-wrap">
+                            {% if recipe.written_by.image %}
+                            <img src="{{ recipe.written_by.image.url }}" alt="" class="main__section-item-user-image">
+                            {% else %}
+                            <i class="fa-solid fa-circle-user fa-lg alternative-image"></i>
+                            {% endif %}    
+                        </div>
+                        <p class="main__section-item-user-text">
+                            {{ recipe.written_by }}
+                        </p>
+                    </div>        
+                </div>
+            </div>
+            <div class="main__section-item-foot">
+                <p class="main__section-item-text">                
+                    {{ recipe.description }}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

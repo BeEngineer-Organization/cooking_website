@@ -9,9 +9,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.db.models import Count, Q
 
 from .models import CustomUser, Recipe, Notification
-from .forms import LoginForm, CustomUserForm, RecipeForm
+from .forms import LoginForm, CustomUserForm, RecipeSearchForm, RecipeForm
 
 
 class IndexView(TemplateView):
@@ -44,6 +46,38 @@ class SignUpView(CreateView):
 
 class SearchView(LoginRequiredMixin, TemplateView):
     template_name = "cooking_website/search.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(CustomUser, pk=self.request.user.pk)
+        context["user"] = user
+
+        form = RecipeSearchForm(self.request.GET)
+        if form.is_valid():
+            keyword = form.cleaned_data["keyword"]
+            if keyword:
+                popular_recipes = (
+                    Recipe.objects.filter(
+                        Q(title__icontains=keyword) | Q(description__icontains=keyword)
+                    )
+                    .annotate(like_count=Count("like"))
+                    .order_by("-like_count")
+                )
+                new_recipes = Recipe.objects.filter(
+                    Q(title__icontains=keyword) | Q(description__icontains=keyword)
+                ).order_by("-created_at")
+        else:
+            popular_recipes = (
+                Recipe.objects.all()
+                .annotate(like_count=Count("like"))
+                .order_by("-like_count")
+            )
+            new_recipes = Recipe.objects.all().order_by("-created_at")
+
+        context["form"] = form
+        context["popular_recipes"] = popular_recipes
+        context["new_recipes"] = new_recipes
+        return context
 
 
 class RecipeView(LoginRequiredMixin, DetailView):

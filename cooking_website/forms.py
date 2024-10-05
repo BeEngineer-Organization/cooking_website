@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from .models import CustomUser, Recipe
@@ -24,7 +24,16 @@ class CustomUserForm(UserCreationForm):
         fields = ["username", "password1", "password2", "profile", "image"]
 
 
-class RecipeForm(ModelForm):
+class RecipeSearchForm(forms.Form):
+    keyword = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={"class": "search__item", "placeholder": "キーワードで検索"}
+        ),
+    )
+
+
+class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ["title", "image", "description"]
