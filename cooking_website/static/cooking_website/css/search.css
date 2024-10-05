@@ -14,7 +14,7 @@
 .search {
     position: absolute;
     top: 50%;
-    right: 10vw;
+    right: 5vw;
     transform: translateY(-50%);
 }
 
@@ -35,6 +35,29 @@
     left: 8px;
     transform: translateY(-50%); 
     z-index: 999;
+}
+
+.recipe-create {
+    position: absolute;
+    top: 50%;
+    left: 5vw;
+    transform: translateY(-50%); 
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+    color: sandybrown;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 5%;
+}
+
+.recipe-create__text {
+    margin-left: 4px;
 }
 
 .main__section {

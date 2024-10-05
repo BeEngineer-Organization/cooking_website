@@ -6,6 +6,12 @@
 {% endblock %}
 
 {% block search %}
+<a href="{% url 'cooking_website:recipe_create' %}" class="recipe-create">
+    <i class="fa-solid fa-pen-to-square"></i>
+    <p class="recipe-create__text">
+        レシピを書く
+    </p>
+</a>
 <form action="" method="get" class="search">
     <span class="search__item-icon">
         <i class="fa-solid fa-magnifying-glass"></i>
