@@ -126,14 +126,26 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     form_class = CustomUserForm
 
 
-class UserFollowingView(LoginRequiredMixin, DetailView):
+class UserFollowingView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/user_following.html"
-    model = CustomUser
+    model = Connection
+    paginate_by = 5
+
+    def get_queryset(self):
+        user_pk = self.kwargs.get("pk")
+        user = get_object_or_404(CustomUser, pk=user_pk)
+        query_set = Connection.objects.filter(follower=user).all()
+        return query_set
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user_pk"] = self.kwargs.get("pk")
+        return context
 
 
-class UserFollowerView(LoginRequiredMixin, DetailView):
+class UserFollowerView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/user_follower.html"
-    model = CustomUser
+    model = Connection
 
 
 class NotificationView(LoginRequiredMixin, ListView):

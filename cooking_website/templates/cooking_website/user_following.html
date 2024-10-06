@@ -1,0 +1,43 @@
+{% extends 'cooking_website/base.html' %}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/user_following.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="main__body">
+    {% if object_list %}
+    {% for connection in object_list %}
+    <a href="{% url 'cooking_website:user' connection.followee.pk %}" class="main__item">
+        {% if connection.followee.image %}
+        <img src="{{ connection.followee.image.url }}" alt="" class="main__item-image">
+        {% else %}
+        <i class="fa-solid fa-circle-user fa-6x alternative-image"></i>
+        {% endif %}   
+        <p class="main__item-username">
+            {{ connection.followee.username }}
+        </p>
+    </a>
+    {% endfor %}
+    {% else %}
+    <p class="main__message">
+        フォローしているユーザーがいません
+    </p>
+    {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="{% url 'cooking_website:user_following' user_pk %}?page=1">&laquo; 先頭へ</a>
+            <a href="{% url 'cooking_website:user_following' user_pk %}?&page={{ page_obj.previous_page_number }}">前へ</a>
+            {% endif %}
+    
+            <span class="current">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    
+            {% if page_obj.has_next %}
+            <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.next_page_number }}">次へ</a>
+            <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.paginator.num_pages }}">最後へ &raquo;</a>
+            {% endif %}
+        </span>
+    </div></div>
+{% endblock %}
