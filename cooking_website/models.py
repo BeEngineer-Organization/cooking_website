@@ -54,8 +54,12 @@ class Like(models.Model):
 
 class Notification(models.Model):
     content = models.TextField(verbose_name="内容", max_length=200)
+    created_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
+    sender = models.ForeignKey(
+        CustomUser, related_name="sent_notification", on_delete=models.CASCADE
+    )
     recipient = models.ForeignKey(
-        CustomUser, related_name="notification", on_delete=models.CASCADE
+        CustomUser, related_name="recept_notification", on_delete=models.CASCADE
     )
 
     def __str__(self):

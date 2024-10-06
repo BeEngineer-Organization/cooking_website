@@ -9,6 +9,7 @@ from .models import Connection, Recipe, Like, Notification
 def connection_handler(sender, instance, *args, **kwargs):
     Notification.objects.create(
         content=instance.follower.username + "からフォローされました",
+        sender=instance.follower,
         recipient=instance.followee,
     )
 
@@ -21,6 +22,7 @@ def recipe_handler(sender, instance, *args, **kwargs):
         notifications.append(
             Notification(
                 content=connection.followee.username + "が新しいレシピを投稿しました",
+                sender=connection.followee,
                 recipient=connection.follower,
             )
         )
@@ -35,5 +37,6 @@ def like_handler(sender, instance, *args, **kwargs):
         + "』について"
         + instance.given_by.username
         + "から「いいね」されました",
+        sender=instance.given_by,
         recipient=instance.recipe.written_by,
     )

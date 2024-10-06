@@ -169,7 +169,8 @@ class NotificationView(LoginRequiredMixin, ListView):
         return (
             Notification.objects.filter(recipient=self.request.user)
             .all()
-            .values("content")
+            .order_by("-created_at")
+            .values("content", "sender")
         )
 
 

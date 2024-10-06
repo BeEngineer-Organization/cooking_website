@@ -10,9 +10,9 @@
 <div class="main__body">
     {% if object_list %}
     {% for notification in object_list %}
-    <p class="main__item-text">
+    <a href="{% url 'cooking_website:user' notification.sender %}" class="main__item-text">
         {{ notification.content }}
-    </p>
+    </a>
     {% endfor %}
     {% else %}
     <p class="main__message">
