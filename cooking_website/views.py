@@ -163,6 +163,14 @@ class UserFollowerView(LoginRequiredMixin, ListView):
 class NotificationView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/notification.html"
     model = Notification
+    paginate_by = 10
+
+    def get_queryset(self):
+        return (
+            Notification.objects.filter(recipient=self.request.user)
+            .all()
+            .values("content")
+        )
 
 
 def follow_post(request):

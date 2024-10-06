@@ -1,0 +1,39 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.shortcuts import get_object_or_404
+
+from .models import Connection, Recipe, Like, Notification
+
+
+@receiver(post_save, sender=Connection)
+def connection_handler(sender, instance, *args, **kwargs):
+    Notification.objects.create(
+        content=instance.follower.username + "からフォローされました",
+        recipient=instance.followee,
+    )
+
+
+@receiver(post_save, sender=Recipe)
+def recipe_handler(sender, instance, *args, **kwargs):
+    connections = Connection.objects.filter(followee=instance.written_by).all()
+    notifications = []
+    for connection in connections:
+        notifications.append(
+            Notification(
+                content=connection.followee.username + "が新しいレシピを投稿しました",
+                recipient=connection.follower,
+            )
+        )
+    Notification.objects.bulk_create(notifications)
+
+
+@receiver(post_save, sender=Like)
+def like_handler(sender, instance, *args, **kwargs):
+    Notification.objects.create(
+        content="『"
+        + instance.recipe.title
+        + "』について"
+        + instance.given_by.username
+        + "から「いいね」されました",
+        recipient=instance.recipe.written_by,
+    )

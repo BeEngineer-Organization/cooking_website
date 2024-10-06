@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* user_following.css上書き */
+.main__body {
+    padding: 16px;
+    width: 100vw;
+}
+/* user_following.css上書き終了 */
+
+.main__item-text {
+    margin-bottom: 16px;
+    padding: 12px;
+    padding-bottom: 16px;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid sandybrown;
+}
