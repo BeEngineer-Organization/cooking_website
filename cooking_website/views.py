@@ -144,8 +144,20 @@ class UserFollowingView(LoginRequiredMixin, ListView):
 
 
 class UserFollowerView(LoginRequiredMixin, ListView):
-    template_name = "cooking_website/user_follower.html"
+    template_name = "cooking_website/user_followed.html"
     model = Connection
+    paginate_by = 5
+
+    def get_queryset(self):
+        user_pk = self.kwargs.get("pk")
+        user = get_object_or_404(CustomUser, pk=user_pk)
+        query_set = Connection.objects.filter(followee=user).all()
+        return query_set
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user_pk"] = self.kwargs.get("pk")
+        return context
 
 
 class NotificationView(LoginRequiredMixin, ListView):
