@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+/* base.css上書き */
+.button {
+    width: 80px;
+    font-size: 14px;
+}
+/* base.css上書き終了 */
+
+.main__body {
+    margin: 0 auto;
+    padding: 16px;
+    width: 50vw;
+    overflow-y: auto;
+}
+
+.main__body-head {
+    margin-bottom: 16px;
+    display: flex;
+}
+
+.main__image-wrap {
+    margin-right: 24px;
+}
+
+.main__image {
+    width: 25vw;
+    height: 400px;
+    object-fit: cover;
+    font-size: 25vw;
+}
+
+.main__info-wrap {
+    padding: 24px;
+}
+
+.main__title {
+    font-size: 36px;
+    line-break: anywhere;
+}
+
+.main__info {
+    margin: 8px 0;
+    padding-top: 8px;
+    display: flex;
+}
+
+.main__like {
+    margin-right: 16px;
+}
+
+.main__like-button{
+    width: 80px;
+    height: 60px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+
+.main__like-button:hover {
+    cursor: pointer;
+}
+
+.main__like-button--red {
+    color: red;
+}
+
+.main__like-count {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.main__writer-wrap {
+    display: flex;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+}
+
+.main__writer-image-wrap {
+    margin-right: 8px;
+}
+
+.main__writer-image {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    font-size: 45px;
+    border-radius: 50%;
+}
+
+.main__writer-username {
+    font-size: 16px;
+}
+
+.main__created-at {
+    padding: 8px;
+    font-size: 16px;
+}
+
+.main__body-foot {
+    padding: 0 16px;
+}
+
+.main__description {
+    font-size: 16px;
+}

@@ -26,5 +26,6 @@ urlpatterns = [
         "user/<int:pk>/follower", views.UserFollowerView.as_view(), name="user_follower"
     ),
     path("notification", views.NotificationView.as_view(), name="notification"),
-    path("follow-post", views.follow_post, name="follow_post"),
+    path("like-post", views._like_post, name="like_post"),
+    path("follow-post", views._follow_post, name="follow_post"),
 ]

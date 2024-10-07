@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from markdown import markdown
+
 
 class CustomUser(AbstractUser):
     profile = models.TextField(
@@ -40,6 +42,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_markdown_description_as_html(self):
+        return markdown(self.description)
 
 
 class Like(models.Model):

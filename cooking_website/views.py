@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Count, Q
 from django.http import JsonResponse
 
-from .models import CustomUser, Recipe, Connection, Notification
+from .models import CustomUser, Recipe, Connection, Like, Notification
 from .forms import LoginForm, CustomUserForm, RecipeSearchForm, RecipeForm
 
 
@@ -86,6 +86,15 @@ class SearchView(LoginRequiredMixin, TemplateView):
 class RecipeView(LoginRequiredMixin, DetailView):
     template_name = "cooking_website/recipe.html"
     model = Recipe
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe = context["object"]
+        context["is_liked"] = bool(
+            Like.objects.filter(recipe=recipe, given_by=self.request.user)
+        )
+        context["like_count"] = recipe.like.all().count()
+        return context
 
 
 class RecipeUpdateView(LoginRequiredMixin, UpdateView):
@@ -174,7 +183,22 @@ class NotificationView(LoginRequiredMixin, ListView):
         )
 
 
-def follow_post(request):
+def _like_post(request):
+    recipe = get_object_or_404(Recipe, pk=request.POST.get("recipe_pk"))
+    like = Like.objects.filter(recipe=recipe, given_by=request.user)
+
+    if like.exists():
+        like.delete()
+    else:
+        Like.objects.create(recipe=recipe, given_by=request.user)
+
+    context = {
+        "like_count": recipe.like.all().count(),
+    }
+    return JsonResponse(context)
+
+
+def _follow_post(request):
     followee = get_object_or_404(CustomUser, pk=request.POST.get("followee_pk"))
     connection = Connection.objects.filter(followee=followee, follower=request.user)
 
