@@ -1,5 +1,6 @@
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
+from django.forms import BaseModelForm
 from django.views.generic import (
     TemplateView,
     CreateView,
@@ -13,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db.models import Count, Q
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 from .models import CustomUser, Recipe, Connection, Like, Notification
 from .forms import LoginForm, CustomUserForm, RecipeSearchForm, RecipeForm
@@ -108,6 +109,16 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
 
+    def get_success_url(self):
+        return reverse_lazy("cooking_website:recipe", kwargs={"pk": self.recipe_pk})
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.written_by = self.request.user
+        instance.save()
+        self.recipe_pk = instance.pk
+        return super().form_valid(form)
+
 
 class UserView(LoginRequiredMixin, DetailView):
     template_name = "cooking_website/user.html"
@@ -183,7 +194,7 @@ class NotificationView(LoginRequiredMixin, ListView):
         )
 
 
-def _like_post(request):
+def like_post(request):
     recipe = get_object_or_404(Recipe, pk=request.POST.get("recipe_pk"))
     like = Like.objects.filter(recipe=recipe, given_by=request.user)
 
@@ -198,7 +209,7 @@ def _like_post(request):
     return JsonResponse(context)
 
 
-def _follow_post(request):
+def follow_post(request):
     followee = get_object_or_404(CustomUser, pk=request.POST.get("followee_pk"))
     connection = Connection.objects.filter(followee=followee, follower=request.user)
 
