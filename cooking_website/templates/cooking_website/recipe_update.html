@@ -1,0 +1,22 @@
+{% extends 'cooking_website/base.html' %}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/sign_up.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/recipe_create.css' %}">
+{% endblock %}
+
+{% block main %}
+<form action="" method="post" class="main__body">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="field">
+        {{ field.label }} : {{ field }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="button">
+        修正
+    </button>    
+</form>
+{% endblock %}

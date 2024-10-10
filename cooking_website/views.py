@@ -103,6 +103,11 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
 
+    def get_success_url(self):
+        return reverse_lazy(
+            "cooking_website:recipe", kwargs={"pk": self.kwargs.get("pk")}
+        )
+
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     template_name = "cooking_website/recipe_create.html"
