@@ -32,7 +32,7 @@ class MyLogoutView(LoginRequiredMixin, LogoutView):
 
 
 class SignUpView(CreateView):
-    template_name = "cooking_website/sign_up.html"
+    template_name = "cooking_website/signup.html"
     model = CustomUser
     form_class = SignUpForm
     success_url = reverse_lazy("cooking_website:search")
