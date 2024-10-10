@@ -126,6 +126,10 @@
 }
 
 .main__section-item-user-text {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 140px;
+    text-overflow: ellipsis;
     font-size: 14px;
 }
 
