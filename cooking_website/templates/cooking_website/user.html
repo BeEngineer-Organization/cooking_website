@@ -5,6 +5,15 @@
 <link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/user.css' %}">
 {% endblock %}
 
+{% block header %}
+<form action="{% url 'cooking_website:logout' %}" method="post" class="heaer__form">
+    {% csrf_token %}
+    <button type="submit" class="header__form-button">
+        ログアウト            
+    </button>
+</form>
+{% endblock %}
+
 {% block main %}
 <div class="main__body">
     <div class="main__body-head">
