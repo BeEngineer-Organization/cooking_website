@@ -22,6 +22,12 @@
             <div class="main__info">
                 <div class="main__like">
                     {% if object.written_by == request.user %}
+                    <div class="main__like-wrap">
+                        <i class="fa-regular fa-heart fa-2x"></i>
+                        <p id="like_count" class="main__like-count">
+                            {{ like_count }}
+                        </p>
+                    </div>
                     <a href="{% url 'cooking_website:recipe_update' object.pk %}" class="button">
                         編集
                     </a>
