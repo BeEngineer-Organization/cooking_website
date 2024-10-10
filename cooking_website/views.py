@@ -1,6 +1,4 @@
 from django.db.models.base import Model as Model
-from django.db.models.query import QuerySet
-from django.forms import BaseModelForm
 from django.views.generic import (
     TemplateView,
     CreateView,
@@ -14,10 +12,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db.models import Count, Q
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 from .models import CustomUser, Recipe, Connection, Like, Notification
-from .forms import LoginForm, CustomUserForm, RecipeSearchForm, RecipeForm
+from .forms import LoginForm, SignUpForm, UserUpdateForm, RecipeSearchForm, RecipeForm
 
 
 class IndexView(TemplateView):
@@ -36,7 +34,7 @@ class MyLogoutView(LoginRequiredMixin, LogoutView):
 class SignUpView(CreateView):
     template_name = "cooking_website/sign_up.html"
     model = CustomUser
-    form_class = CustomUserForm
+    form_class = SignUpForm
     success_url = reverse_lazy("cooking_website:search")
 
     def form_valid(self, form):
@@ -148,7 +146,12 @@ class UserView(LoginRequiredMixin, DetailView):
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "cooking_website/user_update.html"
     model = CustomUser
-    form_class = CustomUserForm
+    form_class = UserUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "cooking_website:user", kwargs={"pk": self.kwargs.get("pk")}
+        )
 
 
 class UserFollowingView(LoginRequiredMixin, ListView):

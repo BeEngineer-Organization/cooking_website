@@ -11,7 +11,7 @@ class LoginForm(AuthenticationForm):
         self.fields["password"].widget.attrs.update({"class": "input"})
 
 
-class CustomUserForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs.update({"class": "input"})
@@ -22,6 +22,17 @@ class CustomUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ["username", "password1", "password2", "profile", "image"]
+
+
+class UserUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].widget.attrs.update({"class": "input"})
+        self.fields["profile"].widget.attrs.update({"class": "text"})
+
+    class Meta:
+        model = CustomUser
+        fields = ["username", "profile", "image"]
 
 
 class RecipeSearchForm(forms.Form):
