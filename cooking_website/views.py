@@ -229,7 +229,6 @@ class UserFollowerView(LoginRequiredMixin, ListView):
             .select_related("follower")
             .values("follower__pk", "follower__image", "follower__username")
         )
-
         return query_set
 
     def get_context_data(self, **kwargs):
