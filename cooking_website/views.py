@@ -15,7 +15,7 @@ from django.db.models import Count, Q
 from django.http import JsonResponse
 
 from .models import CustomUser, Recipe, Connection, Like, Notification
-from .forms import LoginForm, SignUpForm, UserUpdateForm, RecipeSearchForm, RecipeForm
+from .forms import LoginForm, SignupForm, UserUpdateForm, RecipeSearchForm, RecipeForm
 
 
 class IndexView(TemplateView):
@@ -25,7 +25,7 @@ class IndexView(TemplateView):
 class SignupView(CreateView):
     template_name = "cooking_website/signup.html"
     model = CustomUser
-    form_class = SignUpForm
+    form_class = SignupForm
     success_url = reverse_lazy("cooking_website:search")
 
 

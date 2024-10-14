@@ -11,7 +11,7 @@ class LoginForm(AuthenticationForm):
         self.fields["password"].widget.attrs.update({"class": "input"})
 
 
-class SignUpForm(UserCreationForm):
+class SignupForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs.update({"class": "input"})
