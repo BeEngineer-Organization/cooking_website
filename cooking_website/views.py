@@ -28,6 +28,14 @@ class SignupView(CreateView):
     form_class = SignupForm
     success_url = reverse_lazy("cooking_website:search")
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password1")
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return response
+
 
 class MyLoginView(LoginView):
     template_name = "cooking_website/login.html"
@@ -36,14 +44,6 @@ class MyLoginView(LoginView):
 
 class MyLogoutView(LoginRequiredMixin, LogoutView):
     pass
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password1")
-        user = authenticate(username=username, password=password)
-        login(self.request, user)
-        return response
 
 
 class SearchView(LoginRequiredMixin, TemplateView):
