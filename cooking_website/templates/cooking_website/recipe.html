@@ -46,7 +46,7 @@
                 </div>
                 <a href="{% url 'cooking_website:user' object.written_by.pk %}" class="main__writer-wrap">
                     <div class="main__writer-image-wrap">
-                        {% if object.image %}
+                        {% if object.written_by.image %}
                         <img src="{{ object.written_by.image.url }}" alt="" class="main__writer-image">
                         {% else %}
                         <i class="fa-solid fa-circle-user alternative-image main__writer-image"></i>
