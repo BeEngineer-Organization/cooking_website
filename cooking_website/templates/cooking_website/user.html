@@ -82,7 +82,7 @@
             {% for recipe in recipes %}
             <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__list-item">
                 {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="" class="main__list-item-image">
+                <img src="{% get_media_prefix %}{{ recipe.image }}" alt="" class="main__list-item-image">
                 {% else %}
                 <i class="fa-solid fa-image fa-8x alternative-image"></i>
                 {% endif %}

@@ -171,7 +171,7 @@ class UserView(LoginRequiredMixin, DetailView):
         object = context["object"]
         context["following_count"] = object.followee.all().count()
         context["follower_count"] = object.follower.all().count()
-        recipes = object.recipe.all()
+        recipes = object.recipe.all().values("pk", "title", "image")
         context["recipes"] = recipes
         context["recipe_count"] = recipes.count()
 
