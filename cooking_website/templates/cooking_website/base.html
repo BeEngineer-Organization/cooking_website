@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="footer__item">
-            <a href="{% url 'cooking_website:user' user.pk %}" class="footer__item-link">
+            <a href="{% url 'cooking_website:user' request.user.pk %}" class="footer__item-link">
                 <i class="fa-solid fa-user fa-lg"></i>
             </a>
         </div>

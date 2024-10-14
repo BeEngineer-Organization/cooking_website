@@ -51,9 +51,6 @@ class SearchView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = get_object_or_404(CustomUser, pk=self.request.user.pk)
-        context["user"] = user
-
         form = RecipeSearchForm(self.request.GET)
         if form.is_valid():
             keyword = form.cleaned_data["keyword"]
@@ -63,18 +60,60 @@ class SearchView(LoginRequiredMixin, TemplateView):
                         Q(title__icontains=keyword) | Q(description__icontains=keyword)
                     )
                     .annotate(like_count=Count("like"))
+                    .select_related("written_by")
                     .order_by("-like_count")
+                    .values(
+                        "pk",
+                        "title",
+                        "image",
+                        "description",
+                        "written_by__username",
+                        "written_by__image",
+                    )
                 )
-                new_recipes = Recipe.objects.filter(
-                    Q(title__icontains=keyword) | Q(description__icontains=keyword)
-                ).order_by("-created_at")
+                new_recipes = (
+                    Recipe.objects.filter(
+                        Q(title__icontains=keyword) | Q(description__icontains=keyword)
+                    )
+                    .select_related("written_by")
+                    .order_by("-created_at")
+                    .values(
+                        "pk",
+                        "title",
+                        "image",
+                        "description",
+                        "written_by__username",
+                        "written_by__image",
+                    )
+                )
+
         else:
             popular_recipes = (
                 Recipe.objects.all()
                 .annotate(like_count=Count("like"))
                 .order_by("-like_count")
+                .values(
+                    "pk",
+                    "title",
+                    "image",
+                    "description",
+                    "written_by__username",
+                    "written_by__image",
+                )
             )
-            new_recipes = Recipe.objects.all().order_by("-created_at")
+            new_recipes = (
+                Recipe.objects.all()
+                .select_related("written_by")
+                .order_by("-created_at")
+                .values(
+                    "pk",
+                    "title",
+                    "image",
+                    "description",
+                    "written_by__username",
+                    "written_by__image",
+                )
+            )
 
         context["form"] = form
         context["popular_recipes"] = popular_recipes

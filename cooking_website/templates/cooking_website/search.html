@@ -30,7 +30,7 @@
         <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__section-item">
             <div class="main__section-item-head">
                 {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="" class="main__section-item-image">
+                <img src="{% get_media_prefix %}{{ recipe.image }}" alt="" class="main__section-item-image">
                 {% else %}
                 <i class="fa-solid fa-image fa-10x alternative-image"></i>
                 {% endif %}
@@ -40,14 +40,14 @@
                     </h3>
                     <div class="main__section-item-user">
                         <div class="main__section-item-user-image-wrap">
-                            {% if recipe.written_by.image %}
-                            <img src="{{ recipe.written_by.image.url }}" alt="" class="main__section-item-user-image">
+                            {% if recipe.written_by__image %}
+                            <img src="{% get_media_prefix %}{{ recipe.written_by__image }}" alt="" class="main__section-item-user-image">
                             {% else %}
                             <i class="fa-solid fa-circle-user fa-lg alternative-image"></i>
                             {% endif %}    
                         </div>
                         <p class="main__section-item-user-text">
-                            {{ recipe.written_by }}
+                            {{ recipe.written_by__username }}
                         </p>
                     </div>        
                 </div>
@@ -68,7 +68,7 @@
         <a href="{% url 'cooking_website:recipe' recipe.pk %}" class="main__section-item">
             <div class="main__section-item-head">
                 {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="" class="main__section-item-image">
+                <img src="{% get_media_prefix %}{{ recipe.image }}" alt="" class="main__section-item-image">
                 {% else %}
                 <i class="fa-solid fa-image fa-10x alternative-image"></i>
                 {% endif %}
@@ -78,14 +78,14 @@
                     </h3>
                     <div class="main__section-item-user">
                         <div class="main__section-item-user-image-wrap">
-                            {% if recipe.written_by.image %}
-                            <img src="{{ recipe.written_by.image.url }}" alt="" class="main__section-item-user-image">
+                            {% if recipe.written_by__image %}
+                            <img src="{% get_media_prefix %}{{ recipe.written_by__image }}" alt="" class="main__section-item-user-image">
                             {% else %}
                             <i class="fa-solid fa-circle-user fa-lg alternative-image"></i>
                             {% endif %}    
                         </div>
                         <p class="main__section-item-user-text">
-                            {{ recipe.written_by }}
+                            {{ recipe.written_by__username }}
                         </p>
                     </div>        
                 </div>
