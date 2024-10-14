@@ -6,7 +6,7 @@ app_name = "cooking_website"
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
-    path("signup", views.SignUpView.as_view(), name="signup"),
+    path("signup", views.SignupView.as_view(), name="signup"),
     path("login", views.MyLoginView.as_view(), name="login"),
     path("logout", views.MyLogoutView.as_view(), name="logout"),
     path("search", views.SearchView.as_view(), name="search"),

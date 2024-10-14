@@ -22,7 +22,7 @@ class IndexView(TemplateView):
     template_name = "cooking_website/index.html"
 
 
-class SignUpView(CreateView):
+class SignupView(CreateView):
     template_name = "cooking_website/signup.html"
     model = CustomUser
     form_class = SignUpForm
