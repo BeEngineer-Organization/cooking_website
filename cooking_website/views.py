@@ -22,6 +22,13 @@ class IndexView(TemplateView):
     template_name = "cooking_website/index.html"
 
 
+class SignUpView(CreateView):
+    template_name = "cooking_website/signup.html"
+    model = CustomUser
+    form_class = SignUpForm
+    success_url = reverse_lazy("cooking_website:search")
+
+
 class MyLoginView(LoginView):
     template_name = "cooking_website/login.html"
     form_class = LoginForm
@@ -29,13 +36,6 @@ class MyLoginView(LoginView):
 
 class MyLogoutView(LoginRequiredMixin, LogoutView):
     pass
-
-
-class SignUpView(CreateView):
-    template_name = "cooking_website/signup.html"
-    model = CustomUser
-    form_class = SignUpForm
-    success_url = reverse_lazy("cooking_website:search")
 
     def form_valid(self, form):
         response = super().form_valid(form)
