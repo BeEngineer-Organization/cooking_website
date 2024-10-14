@@ -223,7 +223,13 @@ class UserFollowerView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user_pk = self.kwargs.get("pk")
         user = get_object_or_404(CustomUser, pk=user_pk)
-        query_set = Connection.objects.filter(followee=user).all()
+        query_set = (
+            Connection.objects.filter(followee=user)
+            .all()
+            .select_related("follower")
+            .values("follower__pk", "follower__image", "follower__username")
+        )
+
         return query_set
 
     def get_context_data(self, **kwargs):

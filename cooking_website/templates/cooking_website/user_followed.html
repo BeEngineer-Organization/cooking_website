@@ -12,14 +12,14 @@
     </h1>
     {% if object_list %}
     {% for connection in object_list %}
-    <a href="{% url 'cooking_website:user' connection.follower.pk %}" class="main__item">
-        {% if connection.follower.image %}
-        <img src="{{ connection.follower.image.url }}" alt="" class="main__item-image">
+    <a href="{% url 'cooking_website:user' connection.follower__pk %}" class="main__item">
+        {% if connection.follower__image %}
+        <img src="{% get_media_prefix %}{{ connection.follower__image }}" alt="" class="main__item-image">
         {% else %}
         <i class="fa-solid fa-circle-user fa-5x alternative-image"></i>
         {% endif %}   
         <p class="main__item-username">
-            {{ connection.follower.username }}
+            {{ connection.follower__username }}
         </p>
     </a>
     {% endfor %}
