@@ -199,8 +199,7 @@ class UserFollowingView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user_pk = self.kwargs.get("pk")
-        user = get_object_or_404(CustomUser, pk=user_pk)
+        user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
         query_set = (
             Connection.objects.filter(follower=user)
             .all()
@@ -221,8 +220,7 @@ class UserFollowerView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user_pk = self.kwargs.get("pk")
-        user = get_object_or_404(CustomUser, pk=user_pk)
+        user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
         query_set = (
             Connection.objects.filter(followee=user)
             .all()
