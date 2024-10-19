@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+/* base.cssの上書き */
+.header {
+    position: relative;
+}
+
+.main {
+    margin-top: 0;
+}
+
+/* base.cssの上書き終了 */
+
+.search {
+    position: absolute;
+    top: 50%;
+    right: 5vw;
+    transform: translateY(-50%);
+}
+
+.search__body {
+    position: relative;
+}
+
+.search__item {
+    padding: 6px;
+    padding-left: 30px;
+    width: 200px;
+    font-size: 14px;
+}
+
+.search__item-icon {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%); 
+    z-index: 999;
+}
+
+.recipe-create {
+    position: absolute;
+    top: 50%;
+    left: 5vw;
+    transform: translateY(-50%); 
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+    color: sandybrown;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 5%;
+}
+
+.recipe-create__text {
+    margin-left: 4px;
+}
+
+.main__section {
+    padding: 16px;
+    width: 100vw;
+}
+
+.main__section-title {
+    font-size: 24px;
+}
+
+.main__section-body {
+    display: flex;
+    flex-direction: row;
+    margin-top: 16px;
+    padding-bottom: 16px;
+    overflow-x: auto;
+}
+
+.main__section-item {
+    margin-right: 16px;
+    color: #000;
+    text-decoration: none;
+}
+
+.main__section-item-head {
+    display: flex;
+}
+
+.main__section-item-image {
+    margin: 10px 0;
+    width: 160px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.main__section-item-right {
+    position: relative;
+    padding: 16px;
+    width: 180px;
+}
+
+.main__section-item-title {
+    font-size: 18px;
+    line-break: anywhere;
+}
+
+.main__section-item-user {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    margin-top: 16px;
+}
+
+.main__section-item-user-image-wrap {
+    margin-right: 8px;
+}
+
+.main__section-item-user-image {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.main__section-item-user-text {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 140px;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.main__section-item-foot {
+    padding: 0 16px;
+}
+
+.main__section-item-text {
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 340px;
+    text-overflow: ellipsis;
+}

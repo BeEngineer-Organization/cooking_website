@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* base.css上書き */
+.main {
+    display: flex;
+    justify-content: center;
+}
+/* base.css上書き終了 */
+
+.main__body {
+    padding: 16px;
+}
+
+.main__title {
+    margin-bottom: 32px;
+    font-size: 24px;
+}
+
+.main__item {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+}
+
+.main__item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.main__item-username {
+    margin-left: 16px;
+    width: 40vw;
+    line-break: anywhere;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.main__message {
+    font-size: 16px;
+    text-align: center;
+}
+
+.pagination {
+    margin-top: 16px;
+    font-size: 16px;
+    text-align: center;
+}

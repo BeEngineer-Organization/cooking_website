@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* index.cssの上書き */
+.main__item-link {
+    margin-top: 20px;
+}
+/* index.cssの上書き終わり */
+
+.text {
+    margin-top: 4px;
+    padding: 6px;
+    width: 300px;
+    font-size: 16px;
+}

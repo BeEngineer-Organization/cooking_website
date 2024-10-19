@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* index.cssの上書き */
+.main__item-link {
+    margin-top: 20px;
+}
+/* index.cssの上書き終わり */
+
+.field {
+    margin-top: 24px;
+}
+
+.input {
+    margin-top: 4px;
+    padding: 6px;
+    width: 200px;
+    font-size: 16px;
+}
