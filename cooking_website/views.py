@@ -90,6 +90,7 @@ class SearchView(LoginRequiredMixin, TemplateView):
         else:
             popular_recipes = (
                 Recipe.objects.all()
+                .select_related("written_by")
                 .annotate(like_count=Count("like"))
                 .order_by("-like_count")
                 .values(
