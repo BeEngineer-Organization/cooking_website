@@ -112,6 +112,10 @@ class NotificationView(LoginRequiredMixin, ListView):
     pass
 
 
+def like_post(request):
+    pass
+
+
 def follow_post(request):
     followee = get_object_or_404(CustomUser, pk=request.POST.get("followee_pk"))
     connection = Connection.objects.filter(followee=followee, follower=request.user)
