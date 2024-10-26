@@ -31,7 +31,7 @@
     <div class="pagination">
         {% if page_obj.has_previous %}
         <a href="{% url 'cooking_website:user_following' user_pk %}?page=1">&laquo; 先頭へ</a>
-        <a href="{% url 'cooking_website:user_following' user_pk %}?&page={{ page_obj.previous_page_number }}">前へ</a>
+        <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.previous_page_number }}">前へ</a>
         {% endif %}
 
         <span class="current">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
