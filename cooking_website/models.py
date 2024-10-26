@@ -18,10 +18,10 @@ class CustomUser(AbstractUser):
 
 class Connection(models.Model):
     followee = models.ForeignKey(
-        CustomUser, related_name="follower", on_delete=models.CASCADE
+        CustomUser, related_name="is_followee", on_delete=models.CASCADE
     )
     follower = models.ForeignKey(
-        CustomUser, related_name="followee", on_delete=models.CASCADE
+        CustomUser, related_name="is_follower", on_delete=models.CASCADE
     )
 
     def __str__(self):
