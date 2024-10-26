@@ -170,8 +170,8 @@ class UserView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = context["object"]
-        context["following_count"] = object.followee.all().count()
-        context["follower_count"] = object.follower.all().count()
+        context["following_count"] = object.is_follower.all().count()
+        context["follower_count"] = object.is_followee.all().count()
         recipes = object.recipe.all().values("pk", "title", "image")
         context["recipes"] = recipes
         context["recipe_count"] = recipes.count()
@@ -196,16 +196,15 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 class UserFollowingView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/user_following.html"
-    model = Connection
+    model = CustomUser
     paginate_by = 5
 
     def get_queryset(self):
         user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
         query_set = (
-            Connection.objects.filter(follower=user)
+            CustomUser.objects.filter(is_followee__follower=user)
             .all()
-            .select_related("followee")
-            .values("followee__pk", "followee__image", "followee__username")
+            .values("pk", "image", "username")
         )
         return query_set
 
@@ -217,16 +216,15 @@ class UserFollowingView(LoginRequiredMixin, ListView):
 
 class UserFollowerView(LoginRequiredMixin, ListView):
     template_name = "cooking_website/user_followed.html"
-    model = Connection
+    model = CustomUser
     paginate_by = 5
 
     def get_queryset(self):
         user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
         query_set = (
-            Connection.objects.filter(followee=user)
+            CustomUser.objects.filter(is_follower__followee=user)
             .all()
-            .select_related("follower")
-            .values("follower__pk", "follower__image", "follower__username")
+            .values("pk", "image", "username")
         )
         return query_set
 
@@ -278,7 +276,7 @@ def follow_post(request):
         method = "create"
 
     context = {
-        "follower_count": followee.follower.all().count(),
+        "follower_count": followee.is_followee.all().count(),
         "method": method,
     }
     return JsonResponse(context)
