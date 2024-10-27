@@ -156,10 +156,10 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy("cooking_website:recipe", kwargs={"pk": self.recipe_pk})
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.written_by = self.request.user
-        instance.save()
-        self.recipe_pk = instance.pk
+        form = form.save(commit=False)
+        form.written_by = self.request.user
+        form.save()
+        self.recipe_pk = form.pk
         return super().form_valid(form)
 
 
