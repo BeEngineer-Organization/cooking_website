@@ -69,30 +69,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block extra_script %}
-<script type="text/javascript">
-    document.getElementById("like_button").addEventListener("click", e => {
-        e.preventDefault();
-        const url = "{% url 'cooking_website:like_post' %}";
-        fetch(url, {
-            method: "POST",
-            body: "recipe_pk={{ object.pk }}",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-                "X-CSRFToken": "{{ csrf_token }}",
-                },
-            }).then(response => {
-                return response.json();
-            }).then(response => {
-                document.getElementById("like_count").textContent = response.like_count;
-                follow_button = document.getElementById("like_button");
-                follow_button.firstElementChild.classList.toggle("main__like-button--red")
-                follow_button.firstElementChild.classList.toggle("fa-solid")
-                follow_button.firstElementChild.classList.toggle("fa-regular")
-            }).catch(error => {
-                console.log(error);
-            })
-        });
-</script>
-{% endblock %}

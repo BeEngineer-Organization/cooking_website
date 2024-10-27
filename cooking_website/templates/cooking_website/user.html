@@ -98,30 +98,31 @@
 
 {% block extra_script %}
 <script type="text/javascript">
-    document.getElementById("follow_button").addEventListener("click", e => {
+    document.getElementById("follow_button").addEventListener("click", async(e) => {
         e.preventDefault();
         const url = "{% url 'cooking_website:follow_post' %}";
-        fetch(url, {
-            method: "POST",
-            body: "followee_pk={{ object.pk }}",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-                "X-CSRFToken": "{{ csrf_token }}",
-                },
-            }).then(response => {
-                return response.json();
-            }).then(response => {
-                document.getElementById("follower").textContent = response.follower_count + " フォロワー";
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                body: "followee_pk={{ object.pk }}",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    },
+            });
+            const json_data = await response.json();
+            document.getElementById("follower").textContent = json_data.follower_count + " フォロワー";
                 follow_button = document.getElementById("follow_button");
                 follow_button.classList.toggle("following")
-                if (response.method == "create") {
+                if (json_data.method == "create") {
                     follow_button.textContent = "フォロー中"
                 } else {
                     follow_button.textContent = "フォロー" 
                 }
-            }).catch(error => {
-                console.log(error);
-            })
-        });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    });
 </script>
 {% endblock %}
