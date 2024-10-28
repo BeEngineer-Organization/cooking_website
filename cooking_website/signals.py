@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import Connection, Recipe, Like, Notification
+from .models import Connection, Recipe, CustomUser, Like, Notification
 
 
 @receiver(post_save, sender=Connection)
@@ -15,15 +15,15 @@ def connection_handler(sender, instance, *args, **kwargs):
 
 @receiver(post_save, sender=Recipe)
 def recipe_handler(sender, instance, *args, **kwargs):
-    connections = Connection.objects.filter(followee=instance.written_by).all()
+    followee = instance.written_by
+    followers = CustomUser.objects.filter(is_follower__followee=followee).all()
     notifications = []
-    for connection in connections:
+    for follower in followers:
         notifications.append(
             Notification(
-                content=connection.followee.username
-                + "さんが新しいレシピを投稿しました",
-                sender=connection.followee,
-                recipient=connection.follower,
+                content=followee.username + "さんが新しいレシピを投稿しました",
+                sender=followee,
+                recipient=follower,
             )
         )
     Notification.objects.bulk_create(notifications)
