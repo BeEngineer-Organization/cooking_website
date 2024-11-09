@@ -129,6 +129,7 @@ class RecipeView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = context["object"]
+        context["like_count"] = recipe.like.all().count()
         context["is_liked"] = bool(
             Like.objects.filter(recipe=recipe, given_by=self.request.user)
         )
