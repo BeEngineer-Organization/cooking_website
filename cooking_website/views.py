@@ -76,11 +76,8 @@ class UserView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = context["object"]
-        context["following_count"] = object.is_follower.all().count()
-        context["follower_count"] = object.is_followee.all().count()
         recipes = object.recipe.all().values("pk", "title", "image")
         context["recipes"] = recipes
-        context["recipe_count"] = recipes.count()
 
         if object is not self.request.user:
             context["is_followed"] = bool(

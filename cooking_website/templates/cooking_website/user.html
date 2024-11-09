@@ -43,10 +43,10 @@
         <div class="main__item">
             <div class="main__item-head">
                 <a href="{% url 'cooking_website:user_following' object.pk %}" class="main__item-link">
-                    {{ following_count }} フォロー中
+                    {{ object.is_follower.all|length }} フォロー中
                 </a>
                 <a href="{% url 'cooking_website:user_follower' object.pk %}" id="follower" class="main__item-link">
-                    {{ follower_count }} フォロワー
+                    {{ object.is_followee.all|length }} フォロワー
                 </a>
             </div>
             <div class="main__item-foot">
@@ -75,7 +75,7 @@
                 レシピ
             </h2>
             <p class="main__item-caption">
-                ({{ recipe_count }})
+                ({{ recipes|length }})
             </p>    
         </div>
         <div class="main__list">

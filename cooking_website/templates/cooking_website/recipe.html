@@ -25,7 +25,7 @@
                     <div class="main__like-wrap">
                         <i class="fa-regular fa-heart fa-2x"></i>
                         <p id="like_count" class="main__like-count">
-                            {{ like_count }}
+                            {{ object.like.all|length }}
                         </p>
                     </div>
                     <a href="{% url 'cooking_website:recipe_update' object.pk %}" class="button">
