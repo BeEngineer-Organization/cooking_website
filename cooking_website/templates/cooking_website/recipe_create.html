@@ -3,12 +3,11 @@
 
 {% block extra_style %}
 <link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/login.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/signup.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'cooking_website/css/recipe_create.css' %}">
 {% endblock %}
 
 {% block main %}
-<form action="" method="post" enctype="multipart/form-data" class="main__body">
+<form action="" method="post" enctype="multipart/form-data" class="main__body" id="form">
     {% csrf_token %}
     {% for field in form %}
     <div class="field">
