@@ -79,7 +79,7 @@ class UserView(LoginRequiredMixin, DetailView):
         recipes = object.recipe.all().values("pk", "title", "image")
         context["recipes"] = recipes
 
-        if object is not self.request.user:
+        if object.pk != self.request.user.pk:
             context["is_followed"] = bool(
                 Connection.objects.filter(followee=object, follower=self.request.user)
             )
