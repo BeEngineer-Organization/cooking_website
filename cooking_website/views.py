@@ -129,7 +129,6 @@ class RecipeView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = context["object"]
-        context["like_count"] = recipe.like.all().count()
         context["is_liked"] = bool(
             Like.objects.filter(recipe=recipe, given_by=self.request.user)
         )
@@ -170,13 +169,10 @@ class UserView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = context["object"]
-        context["following_count"] = object.is_follower.all().count()
-        context["follower_count"] = object.is_followee.all().count()
         recipes = object.recipe.all().values("pk", "title", "image")
         context["recipes"] = recipes
-        context["recipe_count"] = recipes.count()
 
-        if object is not self.request.user:
+        if object.pk != self.request.user.pk:
             context["is_followed"] = bool(
                 Connection.objects.filter(followee=object, follower=self.request.user)
             )
