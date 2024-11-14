@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block main %}
-<form action="" method="post" enctype="multipart/form-data" class="main__body" id="form">
+<form action="" method="post" enctype="multipart/form-data" class="main-body" id="form">
     {% csrf_token %}
     {% for field in form %}
     <div class="field">

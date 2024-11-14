@@ -17,7 +17,7 @@
 }
 /* base.css上書き終了 */
 
-.header__form-button {
+.header-form-button {
     position: absolute;
     top: 50%;
     right: 5vw;
@@ -37,35 +37,35 @@
     border-radius: 5%;
 }
 
-.header__form-button:hover {
+.header-form-button:hover {
     cursor: pointer;
 }
 
-.main__body {
+.main-body {
     padding: 16px;
 }
 
-.main__body-head {
+.main-body-head {
     margin-bottom: 40px;
 }
 
-.main__item {
+.main-item {
     margin-bottom: 20px;
 }
 
-.main__item-head {
+.main-item-head {
     display: flex;
     margin-bottom: 8px;
 }
 
-.main__item-image {
+.main-item-image {
     width: 96px;
     height: 96px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.main__item-username {
+.main-item-username {
     margin-left: 16px;
     width: 30vw;
     font-size: 24px;
@@ -75,15 +75,15 @@
     line-break: anywhere;
 }
 
-.main__item-foot {
+.main-item-foot {
     margin-top: 12px;
 }
 
-.main__item-profile {
+.main-item-profile {
     font-size: 16px;
 }
 
-.main__item-link {
+.main-item-link {
     margin-right: 16px;
     display: block;
     padding: 4px 0;
@@ -99,33 +99,33 @@
     border: 1px solid sandybrown;
 }
 
-.main__body-foot {
+.main-body-foot {
     width: 40vw;
 }
 
-.main__heading {
+.main-heading {
     display: flex;
     align-items: center;
 }
 
-.main__item-title {
+.main-item-title {
     margin-left: 8px;
     font-size: 20px;
 }
 
-.main__item-caption {
+.main-item-caption {
     margin-left: 8px;
     font-size: 20px;
     color: dimgray;
 }
 
-.main__list {
+.main-list {
     margin-top: 8px;
     display: flex;
     overflow-x: auto;
 }
 
-.main__list-item {
+.main-list-item {
     margin-right: 24px;
     margin-bottom: 16px;
     width: 128px;
@@ -133,7 +133,7 @@
     color: #000;
 }
 
-.main__list-item-image {
+.main-list-item-image {
     margin: 6px 0;
     width: 128px;
     height: 110px;
@@ -141,7 +141,7 @@
     border-radius: 10%;
 }
 
-.main__list-item-title {
+.main-list-item-title {
     padding: 0 8px;
     font-size: 14px;
     line-break: anywhere;

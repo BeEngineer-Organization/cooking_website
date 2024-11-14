@@ -6,25 +6,25 @@
 {% endblock %}
 
 {% block main %}
-<div class="main__body">
-    <div class="main__body-head">
-        <div class="main__image-wrap">
+<div class="main-body">
+    <div class="main-body-head">
+        <div class="main-image-wrap">
             {% if object.image %}
-            <img src="{{ object.image.url }}" alt="" class="main__image">
+            <img src="{{ object.image.url }}" alt="" class="main-image">
             {% else %}
-            <i class="fa-solid fa-image alternative-image main__image"></i>
+            <i class="fa-solid fa-image alternative-image main-image"></i>
             {% endif %}
         </div>
-        <div class="main__info-wrap">
-            <h1 class="main__title">
+        <div class="main-info-wrap">
+            <h1 class="main-title">
                 {{ object.title }}
             </h1>
-            <div class="main__info">
-                <div class="main__like">
+            <div class="main-info">
+                <div class="main-like">
                     {% if object.written_by == request.user %}
-                    <div class="main__like-wrap">
+                    <div class="main-like-wrap">
                         <i class="fa-regular fa-heart fa-2x"></i>
-                        <p id="like_count" class="main__like-count">
+                        <p id="like_count" class="main-like-count">
                             {{ like_count }}
                         </p>
                     </div>
@@ -32,38 +32,38 @@
                         編集
                     </a>
                     {% else %}
-                    <button id="like_button" class="main__like-button">
+                    <button id="like_button" class="main-like-button">
                         {% if is_liked == True %}
-                        <i class="fa-solid fa-heart fa-2x main__like-button--red"></i>
+                        <i class="fa-solid fa-heart fa-2x main-like-button-red"></i>
                         {% else %}
                         <i class="fa-regular fa-heart fa-2x"></i>
                         {% endif %}
-                        <p id="like_count" class="main__like-count">
+                        <p id="like_count" class="main-like-count">
                             {{ like_count }}
                         </p>
                     </button>
                     {% endif %}
                 </div>
-                <a href="{% url 'cooking_website:user' object.written_by.pk %}" class="main__writer-wrap">
-                    <div class="main__writer-image-wrap">
+                <a href="{% url 'cooking_website:user' object.written_by.pk %}" class="main-writer-wrap">
+                    <div class="main-writer-image-wrap">
                         {% if object.written_by.image %}
-                        <img src="{{ object.written_by.image.url }}" alt="" class="main__writer-image">
+                        <img src="{{ object.written_by.image.url }}" alt="" class="main-writer-image">
                         {% else %}
-                        <i class="fa-solid fa-circle-user alternative-image main__writer-image"></i>
+                        <i class="fa-solid fa-circle-user alternative-image main-writer-image"></i>
                         {% endif %}
                     </div>
-                    <p class="main__writer-username">
+                    <p class="main-writer-username">
                         {{ object.written_by.username }}
                     </p>
                 </a>    
             </div>
-            <p class="main__created-at">
+            <p class="main-created-at">
                 {{ object.created_at }}
             </p>        
         </div>
     </div>
-    <div class="main__body-foot">
-        <p class="main__description">
+    <div class="main-body-foot">
+        <p class="main-description">
             {{ object.get_markdown_description_as_html | safe }}
         </p>
     </div>
@@ -88,7 +88,7 @@
             const json_data = await response.json();
             document.getElementById("like_count").textContent = json_data.like_count;
             like_button = document.getElementById("like_button");
-            like_button.firstElementChild.classList.toggle("main__like-button--red");
+            like_button.firstElementChild.classList.toggle("main-like-button-red");
             like_button.firstElementChild.classList.toggle("fa-solid");
             like_button.firstElementChild.classList.toggle("fa-regular");
         }

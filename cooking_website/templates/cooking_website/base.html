@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="header">
-        <span class="header__title">
+        <span class="header-title">
             BeEnRecipe
         </span>
         {% block header %}{% endblock %}
@@ -22,18 +22,18 @@
     </main>
     {% block footer %}
     <footer class="footer">
-        <div class="footer__item">
-            <a href="{% url 'cooking_website:search' %}" class="footer__item-link">
+        <div class="footer-item">
+            <a href="{% url 'cooking_website:search' %}" class="footer-item-link">
                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
             </a>
         </div>
-        <div class="footer__item">
-            <a href="{% url 'cooking_website:user' request.user.pk %}" class="footer__item-link">
+        <div class="footer-item">
+            <a href="{% url 'cooking_website:user' request.user.pk %}" class="footer-item-link">
                 <i class="fa-solid fa-user fa-lg"></i>
             </a>
         </div>
-        <div class="footer__item">
-            <a href="{% url 'cooking_website:notification' %}" class="footer__item-link">
+        <div class="footer-item">
+            <a href="{% url 'cooking_website:notification' %}" class="footer-item-link">
                 <i class="fa-solid fa-bell fa-lg"></i>
             </a>
         </div>
