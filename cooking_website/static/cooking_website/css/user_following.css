@@ -7,16 +7,16 @@
 }
 /* base.css上書き終了 */
 
-.main__body {
+.main-body {
     padding: 16px;
 }
 
-.main__title {
+.main-title {
     margin-bottom: 32px;
     font-size: 24px;
 }
 
-.main__item {
+.main-item {
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -24,14 +24,14 @@
     text-decoration: none;
 }
 
-.main__item-image {
+.main-item-image {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.main__item-username {
+.main-item-username {
     margin-left: 16px;
     width: 40vw;
     line-break: anywhere;
@@ -40,7 +40,7 @@
     align-items: center;
 }
 
-.main__message {
+.main-message {
     font-size: 16px;
     text-align: center;
 }
@@ -51,7 +51,7 @@
     text-align: center;
 }
 
-.pagination__item {
+.pagination-item {
     margin: 0 4px;
     color: #000;
 }

@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
-.main__body {
+.main-body {
     margin: 0 auto;
     display: flex;
     width: 200px;
     flex-direction: column;
 }
 
-.main__item-link {
+.main-item-link {
     margin-top: 40px;
     font-size: 14px;
     text-align: right;

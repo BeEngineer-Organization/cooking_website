@@ -6,39 +6,39 @@
 {% endblock %}
 
 {% block main %}
-<div class="main__body">
-    <h1 class="main__title">
+<div class="main-body">
+    <h1 class="main-title">
         フォロワー
     </h1>
     {% if object_list %}
     {% for follower in object_list %}
-    <a href="{% url 'cooking_website:user' follower.pk %}" class="main__item">
+    <a href="{% url 'cooking_website:user' follower.pk %}" class="main-item">
         {% if follower.image %}
-        <img src="{% get_media_prefix %}{{ follower.image }}" alt="" class="main__item-image">
+        <img src="{% get_media_prefix %}{{ follower.image }}" alt="" class="main-item-image">
         {% else %}
         <i class="fa-solid fa-circle-user fa-5x alternative-image"></i>
         {% endif %}   
-        <p class="main__item-username">
+        <p class="main-item-username">
             {{ follower.username }}
         </p>
     </a>
     {% endfor %}
     {% else %}
-    <p class="main__message">
+    <p class="main-message">
         フォローされていません
     </p>
     {% endif %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-        <a href="{% url 'cooking_website:user_followed' user_pk %}?page=1" class="pagination__item">&laquo; 先頭へ</a>
-        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.previous_page_number }}" class="pagination__item">前へ</a>
+        <a href="{% url 'cooking_website:user_followed' user_pk %}?page=1" class="pagination-item">&laquo; 先頭へ</a>
+        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.previous_page_number }}" class="pagination-item">前へ</a>
         {% endif %}
 
-        <span class="pagination__item">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        <span class="pagination-item">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
 
         {% if page_obj.has_next %}
-        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.next_page_number }}" class="pagination__item">次へ</a>
-        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.paginator.num_pages }}" class="pagination__item">最後へ &raquo;</a>
+        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.next_page_number }}" class="pagination-item">次へ</a>
+        <a href="{% url 'cooking_website:user_followed' user_pk %}?page={{ page_obj.paginator.num_pages }}" class="pagination-item">最後へ &raquo;</a>
         {% endif %}
     </div>
 </div>

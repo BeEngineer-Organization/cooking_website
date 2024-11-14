@@ -7,29 +7,29 @@
 {% endblock %}
 
 {% block main %}
-<div class="main__body">
+<div class="main-body">
     {% if object_list %}
     {% for notification in object_list %}
-    <a href="{% url 'cooking_website:user' notification.sender__pk %}" class="main__item-text">
+    <a href="{% url 'cooking_website:user' notification.sender__pk %}" class="main-item-text">
         {{ notification.content }}
     </a>
     {% endfor %}
     {% else %}
-    <p class="main__message">
+    <p class="main-message">
         通知がありません
     </p>
     {% endif %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-        <a href="{% url 'cooking_website:notification' %}?page=1" class="pagination__item">&laquo; 先頭へ</a>
-        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.previous_page_number }}" class="pagination__item">前へ</a>
+        <a href="{% url 'cooking_website:notification' %}?page=1" class="pagination-item">&laquo; 先頭へ</a>
+        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.previous_page_number }}" class="pagination-item">前へ</a>
         {% endif %}
 
-        <span class="pagination__item">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        <span class="pagination-item">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
 
         {% if page_obj.has_next %}
-        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.next_page_number }}" class="pagination__item">次へ</a>
-        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.paginator.num_pages }}" class="pagination__item">最後へ &raquo;</a>
+        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.next_page_number }}" class="pagination-item">次へ</a>
+        <a href="{% url 'cooking_website:notification' %}?page={{ page_obj.paginator.num_pages }}" class="pagination-item">最後へ &raquo;</a>
         {% endif %}
     </div>
 </div>

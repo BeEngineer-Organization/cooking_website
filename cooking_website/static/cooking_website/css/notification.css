@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* user_following.css上書き */
-.main__body {
+.main-body {
     padding: 16px;
     width: 100vw;
     display: flex;
@@ -10,7 +10,7 @@
 }
 /* user_following.css上書き終了 */
 
-.main__item-text {
+.main-item-text {
     display: inline-block;
     margin-bottom: 16px;
     padding: 12px;
