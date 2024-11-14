@@ -24,7 +24,7 @@ class RecipeSearchForm(forms.Form):
     keyword = forms.CharField(
         required=True,
         widget=forms.TextInput(
-            attrs={"class": "search__item", "placeholder": "キーワードで検索"}
+            attrs={"class": "search-item", "placeholder": "キーワードで検索"}
         ),
     )
 
