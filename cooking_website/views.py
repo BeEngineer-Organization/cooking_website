@@ -198,17 +198,10 @@ class UserFollowingView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
-        query_set = (
-            CustomUser.objects.filter(is_followee__follower=user)
-            .all()
-            .values("pk", "image", "username")
+        query_set = CustomUser.objects.filter(is_followee__follower=user).values(
+            "pk", "image", "username"
         )
         return query_set
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user_pk"] = self.kwargs.get("pk")
-        return context
 
 
 class UserFollowerView(LoginRequiredMixin, ListView):
@@ -218,17 +211,10 @@ class UserFollowerView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = get_object_or_404(CustomUser, pk=self.kwargs.get("pk"))
-        query_set = (
-            CustomUser.objects.filter(is_follower__followee=user)
-            .all()
-            .values("pk", "image", "username")
+        query_set = CustomUser.objects.filter(is_follower__followee=user).values(
+            "pk", "image", "username"
         )
         return query_set
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user_pk"] = self.kwargs.get("pk")
-        return context
 
 
 class NotificationView(LoginRequiredMixin, ListView):
@@ -239,7 +225,6 @@ class NotificationView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return (
             Notification.objects.filter(recipient=self.request.user)
-            .all()
             .select_related("sender")
             .order_by("-created_at")
             .values("content", "sender__pk")

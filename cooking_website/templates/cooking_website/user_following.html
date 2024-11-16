@@ -30,15 +30,15 @@
     {% endif %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-        <a href="{% url 'cooking_website:user_following' user_pk %}?page=1" class="pagination-item">&laquo; 先頭へ</a>
-        <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.previous_page_number }}" class="pagination-item">前へ</a>
+        <a href="{% url 'cooking_website:user_following' view.kwargs.pk %}?page=1" class="pagination-item">&laquo; 先頭へ</a>
+        <a href="{% url 'cooking_website:user_following' view.kwargs.pk %}?page={{ page_obj.previous_page_number }}" class="pagination-item">前へ</a>
         {% endif %}
 
         <span class="pagination-item">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
 
         {% if page_obj.has_next %}
-        <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.next_page_number }}" class="pagination-item">次へ</a>
-        <a href="{% url 'cooking_website:user_following' user_pk %}?page={{ page_obj.paginator.num_pages }}" class="pagination-item">最後へ &raquo;</a>
+        <a href="{% url 'cooking_website:user_following' view.kwargs.pk %}?page={{ page_obj.next_page_number }}" class="pagination-item">次へ</a>
+        <a href="{% url 'cooking_website:user_following' view.kwargs.pk %}?page={{ page_obj.paginator.num_pages }}" class="pagination-item">最後へ &raquo;</a>
         {% endif %}
     </div>
 </div>
