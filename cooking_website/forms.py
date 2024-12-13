@@ -21,12 +21,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class RecipeSearchForm(forms.Form):
-    keyword = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"class": "search-item", "placeholder": "キーワードで検索"}
-        ),
-    )
+    pass
 
 
 class RecipeForm(forms.ModelForm):
